@@ -44,6 +44,6 @@ def strange_decorator(func):
         for kwarg in kwargs:
             if isinstance(kwargs[kwarg], bool):
                 raise TypeError
-        return func(*args) + 13 if isinstance(func(*args), int) else func(*args)
+        return func(*args, **kwargs) + 13 if isinstance(func(*args, **kwargs), int) else func(*args)
 
     return wrapper

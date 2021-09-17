@@ -1,3 +1,9 @@
+import fractions
+import decimal
+import collections
+import typing
+
+
 def get_max_and_min(data: typing.Set[typing.Union[fractions.Fraction, decimal.Decimal, str]]) -> tuple:
     data = list(data)
     for elem in enumerate(data):
