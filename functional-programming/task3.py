@@ -15,10 +15,7 @@ class FibIterator:
             return 0
 
         self.counter -= 1
-        tmp = self.currentNum + self.nextNum
-        self.currentNum = self.nextNum
-        self.nextNum = tmp
-
+        self.currentNum, self.nextNum = self.nextNum, self.currentNum + self.nextNum
         return self.currentNum
 
 
@@ -31,9 +28,7 @@ def fib_generator():
             counter -= 1
             yield 0
         counter -= 1
-        tmp = currentNum + nextNum
-        currentNum = nextNum
-        nextNum = tmp
+        currentNum, nextNum = nextNum, currentNum + nextNum
         yield currentNum
 
 
@@ -44,6 +39,7 @@ def strange_decorator(func):
         for kwarg in kwargs:
             if isinstance(kwargs[kwarg], bool):
                 raise TypeError
-        return func(*args, **kwargs) + 13 if isinstance(func(*args, **kwargs), int) else func(*args)
+        func_res = func(*args, **kwargs)
+        return func_res + 13 if isinstance(func_res, int) else func_res
 
     return wrapper
