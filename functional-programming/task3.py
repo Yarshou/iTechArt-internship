@@ -36,9 +36,8 @@ def strange_decorator(func):
     def wrapper(*args, **kwargs):
         if len(args) + len(kwargs) > 10:
             raise ValueError
-        for kwarg in kwargs:
-            if isinstance(kwargs[kwarg], bool):
-                raise TypeError
+        if any(map(lambda x: isinstance(x, bool), kwargs.values())):
+            raise TypeError
         func_res = func(*args, **kwargs)
         return func_res + 13 if isinstance(func_res, int) else func_res
 
