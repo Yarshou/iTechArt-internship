@@ -36,12 +36,14 @@ def validate_data(data: dict) -> bool:
                 raise TypeError
             if not subject.isascii() or not subject.isalpha():
                 raise ValueError
-            if any(map(lambda x: isinstance(x, bool), data[name][subject])):
-                raise TypeError
-            if any(map(lambda x: not isinstance(x, int), data[name][subject])):
-                raise TypeError
-            if any(map(lambda x: x > 10 or x < 1, data[name][subject])):
+            if not any(map(lambda x: x > 10 or x < 1, data[name][subject])):
+                if any(map(lambda x: isinstance(x, bool), data[name][subject])):
+                    raise TypeError
+                if any(map(lambda x: not isinstance(x, int), data[name][subject])):
+                    raise TypeError
+            else:
                 raise ValueError
+
     return True
 
 
