@@ -22,18 +22,16 @@ def get_current_exchange_rates(cur_name: str) -> str:
 
 
 def get_weather_info() -> typing.Dict[str, int]:
-    html = req.urlopen(WEATHER_URL).read()
-    soup = BeautifulSoup(html, 'html.parser')
-    items = soup.find_all('div', class_='place-list')
+    soup = BeautifulSoup(req.urlopen(WEATHER_URL).read(), 'html.parser')
     result = {}
-    for item in items:
-        for letter in item.find('ul').find_all('li'):
-            reqs = req.urlopen("https://yandex.by" + letter.find('a').get("href")).read()
-            soup2 = BeautifulSoup(reqs, 'html.parser')
+    for item in soup.find_all('div', class_='place-list'):
+        for city in item.find('ul').find_all('li'):
+            soup = BeautifulSoup(req.urlopen("https://yandex.by" + city.find('a').get("href")).read(), 'html.parser')
             try:
-                temp = soup2.find('div', class_="temp fact__temp fact__temp_size_s"). \
-                    find('span', class_='temp__value temp__value_with-unit').get_text()
-                result[letter.get_text()] = int(temp)
+                result[city.get_text()] = int(
+                    soup.find('div', class_="temp fact__temp fact__temp_size_s").
+                        find('span', class_='temp__value temp__value_with-unit').get_text()
+                )
                 print(result)
             except AttributeError:
                 pass
