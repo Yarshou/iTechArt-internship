@@ -16,39 +16,31 @@ class Department:
     def __or__(self, other):
         self_plan = self.get_budget_plan()
         other_plan = other.get_budget_plan()
-        if self_plan > other_plan:
-            return self
-        elif self_plan == other_plan:
-            return self
-        else:
-            return other
+        return self if self_plan > other_plan or self_plan == other_plan else other
 
     def __add__(self, other):
         return self.merge_departments(self, other)
 
     def get_budget_plan(self) -> float:
-        budg = self.budget
-        for employee in self.employees.keys():
-            budg -= self.employees[employee]
-            if budg < 0:
-                raise self.BudgetError
+        budg = self.budget - sum(self.employees.values())
+        if budg < 0:
+            raise self.BudgetError
         return budg
 
     @property
     def average_salary(self) -> float:
-        salary = sum(self.employees.values())
-        return round(salary / len(self.employees.keys()), 2)
+        return round(sum(self.employees.values()) / len(self.employees.keys()), 2)
 
     @staticmethod
     def merge_departments(*args):
-        new_dep = Department("", {}, 0)
+        employees = {}
+        budget = 0
         dep_dict = {}
         for dep in args:
             dep_dict[dep.name] = dep.average_salary
-            new_dep.budget += dep.budget
-            for name, salary in dep.employees.items():
-                new_dep.employees[name] = salary
+            budget += dep.budget
+            employees = {k: v for k, v in dep.employees.items()}
+        sorted_names = dict(sorted(dep_dict.items(), key=lambda x: (-x[1], x[0])))
+        new_dep = Department(" - ".join(sorted_names.keys()), employees, budget)
         new_dep.get_budget_plan()
-        employees = dict(sorted(dep_dict.items(), key=lambda x: (-x[1], x[0])))
-        new_dep.name = " - ".join(employees.keys())
         return new_dep

@@ -10,4 +10,4 @@ class Student:
     subjects: list[str] = dataclasses.field(default_factory=list, compare=False, repr=False)
 
     def __post_init__(self):
-        self.first_letter = self.name[0] if len(self.name) else None
+        self.first_letter = self.name[0] if self.name else None
