@@ -14,13 +14,9 @@ class RegParser:
     @classmethod
     def find(cls, text: str, order: int) -> typing.List[typing.Union[str, dict, int, float]]:
         if order == 1:
-            return [i for i in re.findall(RegParser.ADDRESS_REGEX, text, re.MULTILINE)]
+            return re.findall(RegParser.ADDRESS_REGEX, text, re.MULTILINE)
         if order == 2:
-            res = []
-            for pair in [dict(zip(['age', 'name', 'surname', 'city'], v)) for v in
-                         re.findall(RegParser.CONTACT_REGEX, text, re.MULTILINE)]:
-                res.append({k: v for k, v in pair.items() if v})
-            return res
+            return [match.groupdict() for match in re.finditer(RegParser.CONTACT_REGEX, text, re.MULTILINE)]
 
         if order == 3:
             return [float(num.replace(',', '.')) if '.' in num or ',' in num else int(num)
