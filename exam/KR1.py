@@ -5,17 +5,13 @@ import types
 
 class Logger(type):
 
-    @staticmethod
-    def call_counter(func, instance):
-        LogItem = collections.namedtuple('LogItem', ['name', 'args', 'kwargs', 'result'])
-        print(instance.LogItem(1, 1, 1, 1))
+    def call_counter(self, func, instance):
+        LogItem = self.LogItem
 
         def wrapper(*args, **kwargs):
-            print('wrapper')
             result = func(*args, **kwargs)
-            # print(self.LogItem(1, 1, 1, 1))
             instance.log.append(LogItem(func.__name__, args[1:], kwargs, result))
-            instance.last_log = instance.log[-3:] if len(instance.log) >= 3 else instance.log
+            instance.last_log = instance.log[2::-1] if len(instance.log) >= 5 else instance.log[::-1]
             return result
 
         return wrapper
