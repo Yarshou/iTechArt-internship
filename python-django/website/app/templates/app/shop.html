@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center" style="font-size: 25px">
+    <a href={% url 'shop-detail' shop.id %}>{{ shop.name }}<br></a>
+    <form action={% url 'dep-add' shop.id %}>
+        <button type="submit">Добавить<br> департамент</button>
+    </form>
+</div>
+{% for dep in shop.departments.all %}
+<table width="200" border="1" align="center" cellpadding="4" cellspacing="0" style="margin-top: 10px">
+    <tr>
+        <td colspan="4" bgcolor="#FBF0DB" style="justify-content: space-between;">
+            {{ dep }}
+            <form action={% url 'dep' shop.id dep.id %} method="GET">
+                <button type="submit">Редактировать</button>
+            </form>
+            <form action={% url 'shop' shop.id %}>
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_sphere" value="{{ dep.sphere }}">
+                <button type="submit" value="{{ dep.sphere }}">Удалить</button>
+            </form>
+        </td>
+        <td>
+            <form action={% url 'item-add' shop.id %}>
+                <input type="hidden" name="_sphere" value="{{ dep.sphere }}">
+                <button type="submit">Добавить товар</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>Название</td>
+        <td>Описание</td>
+        <td>Цена</td>
+        <td>Комментарии</td>
+    </tr>
+    {% for item in dep.items.all %}
+    <tr {% if item.is_sold %} bgcolor="#808080" {% endif %}>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.comments }}</td>
+        <td>
+            <form action={% url 'item' shop.id item.id %} method="GET">
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+        <td>
+            <form action={% url 'item' shop.id item.id %} method="DELETE">
+                <input type="hidden" name="_method" value="delete">
+                <button type="delete">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endfor %}
+<form action={% url 'main' %}>
+<div align="center" style="margin-top: 50px">
+    <button type="submit">На главную</button>
+</div>
+</form>
+</body>
+</html>

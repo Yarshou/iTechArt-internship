@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+
+</div>
+<div>
+    {% for shop in shops %}
+        Name: {{ shop.name }}<br>
+        Address: {{ shop.address }}<br>
+        Staff amount: {{ shop.staff_amount }}<br>
+        {% if shop.deps %}
+            Deps: {{ shop.deps }}<br>
+        {% endif %}
+        {% if shop.employees %}
+            Employees: {{ shop.employees }}<br>
+        {% endif %}
+        {% if shop.items_amount %}
+            Items amount: {{ shop.items_amount }}<br>
+        {% endif %}
+        {% if shop.max_price %}
+            Max price: {{ shop.max_price }}<br><br>
+        {% endif %}
+    {% endfor %}
+</div>
+<a href={% url 'main' %}>
+<button>Назад</button>
+</a>
+</body>
+</html>

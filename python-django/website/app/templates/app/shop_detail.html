@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table width="200" border="1" align="center" cellspacing="0" style="text-align: center; margin-top: 300px">
+    <tr>
+        <td>Name</td>
+        <td>{{ shop.name }}</td>
+        <td>
+            <form action={% url 'shop-detail' shop.id %} method="post">{% csrf_token %}
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>{{ shop.address }}</td>
+        <td>
+            <form action="" method="post">
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+
+    </tr>
+    <tr>
+        <td>Staff Amount</td>
+        <td>{{ shop.staff_amount }}</td>
+        <td>
+            <form action="" method="post">
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<div align="center" style="margin-top: 20px">
+    <a href={% url 'shop' shop.id %}>
+        <button>
+            Назад
+        </button>
+    </a>
+</div>
+</body>
+</html>

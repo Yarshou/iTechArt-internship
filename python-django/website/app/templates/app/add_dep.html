@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center" style="font-size: 20px; margin-top: 300px">
+    <form action={% url 'dep-add' shop_id %} method="post">{% csrf_token %}
+        <table>
+            <tr>
+                <td>DEP SPHERE</td>
+                <td><input type="text" name="dep_sphere"></td>
+            </tr>
+            <tr>
+                <td>DEP STAFF AMOUNT</td>
+                <td><input type="text" name="dep_staff_amount"></td>
+            </tr>
+
+        </table>
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+</body>
+</html>
