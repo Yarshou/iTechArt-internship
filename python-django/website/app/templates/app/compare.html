@@ -1,14 +1,8 @@
-<!DOCTYPE html>
+{% extends 'app/base.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
-    <script src="{% static 'app/javascript/jquery-3.6.0.min.js' %}"></script>
-    <script src="{% static 'app/javascript/script.js' %}"></script>
-</head>
-<body>
+{% load poll_extras %}
+
+{% block content %}
 <div align="center" style="font-size: 20px; margin-top: 150px;">
     <form action={% url 'comparison-details' %} method="post">{% csrf_token %}
     <label>Departments:</label><br>
@@ -22,7 +16,7 @@
         <option value="{{ dep.id }}">{{ dep }}</option>
         {% endfor %}
     </select><br>
-    <button id="btn1" type="submit" onclick="script.js">Сравнить</button><br>
+    <button id="btn1" type="submit" class="btn btn-primary" type="submit" onclick="script.js">Сравнить</button><br>
     <input type="checkbox" name="v1" value="1">Кол-во сотрудников в отделе<br>
     <input type="checkbox" name="v2" value="2">Суммарная стоимость проданных товаров<br>
     <input type="checkbox" name="v3" value="3">Суммарная стоимость не проданных товаров<br>
@@ -34,8 +28,7 @@
 </div><br>
 <div align="center" style="margin-top: 200px">
     <a href={% url 'main' %}>
-        <button>На главную</button>
+        <button type="submit" class="btn btn-primary">На главную</button>
     </a>
 </div>
-</body>
-</html>
+{% endblock %}
