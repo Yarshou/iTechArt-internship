@@ -23,10 +23,15 @@ class Department(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(null=True)
-    price = models.IntegerField()
+    price = models.FloatField()
     is_sold = models.BooleanField()
     comments = ArrayField(models.CharField(max_length=255), null=True, blank=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='items')
 
     def __str__(self):
         return f'{self.name} - price {self.price} - {self.department}'
+
+
+class Statistic(models.Model):
+    url = models.CharField(max_length=255, unique=True)
+    amount = models.IntegerField(default=0)
