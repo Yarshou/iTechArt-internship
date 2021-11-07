@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<table width="200" border="1" align="center" cellspacing="0" style="text-align: center; margin-top: 300px">
+{% extends 'app/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block content %}
+<table class="table table-bordered">
     <tr>
         <td>Name</td>
         <td>{{ shop.name }}</td>
         <td>
             <form action={% url 'shop-detail' shop.id %} method="post">{% csrf_token %}
-                <button type="submit">Редактировать</button>
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+            </form>
+        </td>
+        <td>
+            <form action={% url 'shop-detail' shop.id %} method="post">{% csrf_token %}
+                <button type="submit" class="btn btn-primary">Удалить</button>
             </form>
         </td>
     </tr>
@@ -20,7 +23,12 @@
         <td>{{ shop.address }}</td>
         <td>
             <form action="" method="post">
-                <button type="submit">Редактировать</button>
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+            </form>
+        </td>
+        <td>
+            <form action="" method="post">
+                <button type="submit" class="btn btn-primary">Удалить</button>
             </form>
         </td>
 
@@ -30,17 +38,22 @@
         <td>{{ shop.staff_amount }}</td>
         <td>
             <form action="" method="post">
-                <button type="submit">Редактировать</button>
+                <input type="hidden" name="1" value="1">
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+            </form>
+        </td>
+        <td>
+            <form action="" method="post">
+                <button type="submit" class="btn btn-primary">Удалить</button>
             </form>
         </td>
     </tr>
 </table>
 <div align="center" style="margin-top: 20px">
     <a href={% url 'shop' shop.id %}>
-        <button>
+        <button type="submit" class="btn btn-primary">
             Назад
         </button>
     </a>
 </div>
-</body>
-</html>
+{% endblock %}

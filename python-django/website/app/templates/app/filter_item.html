@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'app/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block content %}
 <div>
     {% for item in items %}
         {% if item.department %}
             Name: {{ item.name }}<br>
             Description: {{ item.description }}<br>
-            Price: {{ item.price }}<br>
+            Price: {{ item.price|floatformat }}<br>
             Comments: {{ item.comments }}<br>
             DepStaff: {{ item.department.staff_amount }}<br><br>
         {% endif %}
     {% endfor %}
 </div>
-<a href={% url 'main' %}><button>Назад</button></a>
-</body>
-</html>
+<a href={% url 'main' %}><button type="submit" class="btn btn-primary">Назад</button></a>
+{% endblock %}

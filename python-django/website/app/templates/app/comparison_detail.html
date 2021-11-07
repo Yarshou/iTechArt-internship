@@ -1,0 +1,73 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block content %}
+
+<table id="tb1" border="1" cellpadding="4" cellspacing="0" class="table table-bordered">
+    <tr>
+        <td colspan="4" bgcolor="#FBF0DB" style="justify-content: space-between;">
+            DEPS COMPARISON
+        </td>
+    </tr>
+    <tr>
+        <td>dep</td>
+        <td>{{ deps.first|upper }}</td>
+        <td>{{ deps.last|upper }}</td>
+    </tr>
+    {% if v1 %}
+    <tr>
+        <td>Кол-во сотрудников в отделе</td>
+        <td id="v1dep1">{{ deps.first.staff_amount }}</td>
+        <td id="v1dep2">{{ deps.last.staff_amount }}</td>
+    </tr>
+    {% endif %}
+    {% if deps.first.sold_items_price %}
+    <tr>
+        <td>Суммарная стоимость проданных товаров</td>
+        <td id="v2dep1">{{ deps.first.sold_items_price|floatformat }}</td>
+        <td id="v2dep2">{{ deps.last.sold_items_price|floatformat }}</td>
+    </tr>
+    {% endif %}
+    {% if deps.first.unsold_items_price %}
+    <tr>
+        <td>Суммарная стоимость не проданных товаров</td>
+        <td id="v3dep1">{{ deps.first.unsold_items_price|floatformat }}</td>
+        <td id="v3dep2">{{ deps.last.unsold_items_price|floatformat }}</td>
+    </tr>
+    {% endif %}
+    {% if deps.first.all_items_price %}
+    <tr>
+        <td>Суммарная стоимость всех товаров</td>
+        <td id="v4dep1">{{ deps.first.all_items_price|floatformat }}</td>
+        <td id="v4dep2">{{ deps.last.all_items_price|floatformat }}</td>
+    </tr>
+    {% endif %}
+    {% if deps.first.sold_items_amount %}
+    <tr>
+        <td>Количество проданных товаров</td>
+        <td id="v5dep1">{{ deps.first.sold_items_amount }}</td>
+        <td id="v5dep2">{{ deps.last.sold_items_amount }}</td>
+    </tr>
+    {% endif %}
+    {% if deps.first.unsold_items_amount %}
+    <tr>
+        <td>Количество не проданных товаров</td>
+        <td id="v6dep1">{{ deps.first.unsold_items_amount }}</td>
+        <td id="v6dep2">{{ deps.last.unsold_items_amount }}</td>
+    </tr>
+    {% endif %}
+    {% if deps.first.all_items_amount %}
+    <tr>
+        <td>Количество всех товаров</td>
+        <td id="v7dep1">{{ deps.first.all_items_amount }}</td>
+        <td id="v7dep2">{{ deps.last.all_items_amount }}</td>
+    </tr>
+    {% endif %}
+</table>
+<form action={% url 'main' %}>
+<div align="center" style="margin-top: 130px">
+    <button type="submit" class="btn btn-primary">На главную</button>
+</div>
+</form>
+{% endblock %}

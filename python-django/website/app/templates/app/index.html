@@ -1,84 +1,56 @@
-<!DOCTYPE html>
+{% extends 'app/base.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'app/style.css' %}">
-</head>
-<body>
-<div align="center" style="font-size: 20px; margin-top: 300px;">
+{% load poll_extras %}
+
+{% block content %}
+<main>
+<div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-5 fw-semibold">Фильтры</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+          Товары
+        </button>
+        <div class="collapse show" id="home-collapse" style="">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="{% url 'filter-item' 1 %}" class="link-dark rounded">Все на "а"</a></li>
+            <li><a href="{% url 'filter-item' 2 %}" class="link-dark rounded">Товары дороже 10, в отделе с кол-вом сотрудников < 50</a></li>
+            <li><a href="{% url 'filter-item' 3 %}" class="link-dark rounded">Товары дороже 20 или в отделе с кол-вом сотрудников > 50</a></li>
+            <li><a href="{% url 'filter-item' 4 %}" class="link-dark rounded">Товары с id 1|3|5|6</a></li>
+            <li><a href="{% url 'filter-item' 5 %}" class="link-dark rounded">Товары, у которых (цена > 10, в названии есть "a") или цена < 20 и в названии есть "о"</a></li>
+            <li><a href="{% url 'filter-item' 6 %}" class="link-dark rounded">Товары, с ценой, равной кол-ву сотрудников + 10</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
+          Магазины
+        </button>
+        <div class="collapse show" id="dashboard-collapse" style="">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="{% url 'filter-shop' 1 %}" class="link-dark rounded">Все магазины, у которых количество сотрудников не совпадает с суммарным количеством сотрудников из всех отделов этого магазина.</a></li>
+            <li><a href="{% url 'filter-shop' 2 %}" class="link-dark rounded">Все магазины, среди товаров которых есть хоть один с ценой менее 5.</a></li>
+            <li><a href="{% url 'filter-shop' 3 %}" class="link-dark rounded">Все магазины, содержащие дополнительную информацию - количество отделов, суммарное число сотрудников в отделах, количество товаров и максимальную цену среди всех товаров магазина.</a></li>
+            <li><a href="{% url 'filter-shop' 4 %}" class="link-dark rounded">Все магазины, содержащие дополнительную информацию - количество товаров, у которых цена <= 10 либо в названии содержится буква "а".</a></li>
+          </ul>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+<div align="center" style="padding-top: 400px;">
     <form action={% url 'main' %} method="post">{% csrf_token %}
     <label for="name">Shops:</label><br>
-    <select name="name" id="name">
+    <select name="name" id="name" class="form-select">
         {% for shop in shops %}
         <option value="{{ shop }}">{{ shop }}</option>
         {% endfor %}
     </select><br>
-    <button type="submit">Открыть</button>
+    <button type="submit" class="btn btn-primary">Открыть</button>
     </form>
 </div><br>
-<div class="query">
-    <div align="center">
-        Все товары на "а"
-        <a href={% url 'filter-item' 1 %}>
-        <button>Показать</button>
-        </a>
-    </div>
-    <div align="center">
-        Товары дороже 10, в отделе с кол-вом сотрудников < 50
-        <a href={% url 'filter-item' 2 %}>
-        <button>Показать</button>
-        </a>
-    </div>
-    <div align="center">
-        Товары дороже 20 или в отделе с кол-вом сотрудников > 50
-        <a href={% url 'filter-item' 3 %}>
-        <button>Показать</button>
-        </a>
-    </div>
-    <div align="center">
-        Товары с id 1|3|5|6
-        <a href={% url 'filter-item' 4 %}>
-        <button>Показать</button>
-        </a>
-    </div>
-    <div align="center">
-        Товары, у которых (цена > 10, в названии есть "a") или цена < 20 и в названии есть "о"
-        <a href={% url 'filter-item' 5 %}>
-        <button>Показать</button>
-        </a>
-    </div>
-    <div align="center">
-        Товары, с ценой, равной кол-ву сотрудников + 10
-        <a href={% url 'filter-item' 6 %}>
-        <button>Показать</button>
-        </a>
-    </div><br><br>
-    <div align="center">
-        shop1
-        <a href={% url 'filter-shop' 1 %}>
-        <button>Показать</button>
-        </a>
-    </div><br>
-    <div align="center">
-        shop2
-        <a href={% url 'filter-shop' 2 %}>
-        <button>Показать</button>
-        </a>
-    </div><br>
-    <div align="center">
-        shop3
-        <a href={% url 'filter-shop' 3 %}>
-        <button>Показать</button>
-        </a>
-    </div><br>
-    <div align="center">
-        shop4
-        <a href={% url 'filter-shop' 4 %}>
-        <button>Показать</button>
-        </a>
-    </div><br><br>
-</div>
-</body>
-</html>
+</main>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+    <link href="{% static 'app/css/sidebars.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <script src="{% static 'app/javascript/jquery-3.6.0.min.js' %}"></script>
+</head>
+<body>
+<header>
+    <h1><a href="{% url 'main' %}">SHOPS</a></h1>
+    Активных товаров на сайте: {{ request.ITEMS_AMOUNT }}
+</header>
+{% block content %}
+
+{% endblock %}
+        <footer>
+                <div class="container">
+                        <div class="footer_row_1">
+                            <div class="col-12 justify-content-center d-flex row_down_1" style="text-align: center">
+                                <p>All rights reserved</p>
+                            </div>
+                        </div>
+                        <div class="footer_row_2">
+                            <div class="col-12 d-flex justify-content-center d-flex row_down_2" style="text-align: center">
+                                <a href="#" class="item_footer_down"><img src="{% static 'app/svg/Twitter.svg' %}" alt="twitter"></a>
+                                <a href="#" class="item_footer_down"><img src="{% static 'app/svg/Facebook.svg' %}"></a>
+                                <a href="#" class="item_footer_down"><img src="{% static 'app/svg/Google.svg' %}"></a>
+                                <a href="#" class="item_footer_down"><img src="{% static 'app/svg/Linkedin.svg' %}"></a>
+                            </div>
+                        </div>
+                        <div class="footer_row_3">
+                            <div class="col-12 justify-content-center d-flex row_down_3" style="text-align: center">
+                                <p>Created by Yarshou Daniil, 2021</p>
+                            </div>
+                        </div>
+                </div>
+        </footer>
+<script src="{% static 'app/javascript/script.js' %}"></script>
+<script src="{% static 'app/javascript/sidebars.js' %}"></script>
+<script src="{% static 'app/javascript/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
