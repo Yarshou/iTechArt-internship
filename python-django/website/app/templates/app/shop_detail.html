@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block content %}
+<table class="table table-bordered">
+    <tr>
+        <td>Name</td>
+        <td>{{ shop.name }}</td>
+        <td>
+            <form action={% url 'shop-detail' shop.id %} method="post">{% csrf_token %}
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+            </form>
+        </td>
+        <td>
+            <form action={% url 'shop-detail' shop.id %} method="post">{% csrf_token %}
+                <button type="submit" class="btn btn-primary">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>{{ shop.address }}</td>
+        <td>
+            <form action="" method="post">
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+            </form>
+        </td>
+        <td>
+            <form action="" method="post">
+                <button type="submit" class="btn btn-primary">Удалить</button>
+            </form>
+        </td>
+
+    </tr>
+    <tr>
+        <td>Staff Amount</td>
+        <td>{{ shop.staff_amount }}</td>
+        <td>
+            <form action="" method="post">
+                <input type="hidden" name="1" value="1">
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+            </form>
+        </td>
+        <td>
+            <form action="" method="post">
+                <button type="submit" class="btn btn-primary">Удалить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<div align="center" style="margin-top: 20px">
+    <a href={% url 'shop' shop.id %}>
+        <button type="submit" class="btn btn-primary">
+            Назад
+        </button>
+    </a>
+</div>
+{% endblock %}

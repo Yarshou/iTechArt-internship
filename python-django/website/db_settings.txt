@@ -1,0 +1,30 @@
+'ENGINE': 'django.db.backends.postgresql_psycopg2',
+'NAME': 'internship',
+'USER': 'postgres',
+'PASSWORD': 'toor',
+'HOST': '127.0.0.1',
+'PORT': '5432',
+
+from django.contrib.postgres.fields import ArrayField
+from django.db import models
+
+
+class Shop(models.Model):
+    name = models.CharField()
+    address = models.CharField(null=True)
+    staff_amount = models.IntegerField()
+
+
+class Department(models.Model):
+    sphere = models.CharField()
+    staff_amount = models.IntegerField()
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+
+
+# class Item(models.Model):
+#     name = models.CharField()
+#     description = models.TextField(null=True)
+#     price = models.IntegerField()
+#     is_sold = models.BooleanField()
+#     comments = ArrayField(models.CharField())
+#     department = models.ForeignKey(Department, on_delete=models.CASCADE)

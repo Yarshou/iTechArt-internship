@@ -1,0 +1,31 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block content %}
+<div>
+
+</div>
+<div>
+    {% for shop in shops %}
+        Name: {{ shop.name }}<br>
+        Address: {{ shop.address }}<br>
+        Staff amount: {{ shop.staff_amount }}<br>
+        {% if shop.deps %}
+            Deps: {{ shop.deps }}<br>
+        {% endif %}
+        {% if shop.employees %}
+            Employees: {{ shop.employees }}<br>
+        {% endif %}
+        {% if shop.items_amount %}
+            Items amount: {{ shop.items_amount }}<br>
+        {% endif %}
+        {% if shop.max_price %}
+            Max price: {{ shop.max_price|floatformat }}<br><br>
+        {% endif %}
+    {% endfor %}
+</div>
+<a href={% url 'main' %}>
+<button type="submit" class="btn btn-primary">Назад</button>
+</a>
+{% endblock %}

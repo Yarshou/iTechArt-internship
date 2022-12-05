@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block content %}
+<div align="center">
+    <form action={% url 'item-add' shop_id %} method="post">{% csrf_token %}
+        <table class="table table-bordered">
+            <tr>
+                <td>ITEM NAME</td>
+                <td><input type="text" name="item_name" value={{ item.name }}></td>
+            </tr>
+            <tr>
+                <td>ITEM DESCRIPTION</td>
+                <td><input type="text" name="item_description" value={{ item.description }}></td>
+            </tr>
+            <tr>
+                <td>ITEM PRICE</td>
+                <td><input type="text" name="item_price" value={{ item.price }}></td>
+            </tr>
+            <tr>
+                <td>ITEM IS SOLD</td>
+                <td>
+                    <input type="radio" id="true" name="item_is_sold" value="true">
+                    <label for="true">True</label>
+                    <input type="radio" id="false" name="item_is_sold" value="false">
+                    <label for="true">False</label>
+                </td>
+            </tr>
+            <tr>
+                <td>ITEM COMMENTS</td>
+                <td><input type="text" name="item_comment" value={{ item.price }}></td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+</div>
+{% endblock %}
